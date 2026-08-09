@@ -9,7 +9,8 @@ export default function Home() {
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: toblinkMarkup }}
       />
-      <Script src="/toblink.js" strategy="afterInteractive" />
+      <Script src="./toblink.js" strategy="afterInteractive" />
     </>
   );
 }
+
