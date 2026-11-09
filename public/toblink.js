@@ -1,4 +1,4 @@
-const P=[
+let P=[
 {id:1,n:'بلیزر زرشکی Tailored',s:'Maison N',p:2890000,c:['ترند','کت','رسمی'],i:'./assets/toblink-asset-3.jpg',z:['S','M','L'],o:['زرشکی','مشکی']},
 {id:2,n:'پیراهن کرم مینیمال',s:'Nava Studio',p:1640000,c:['جدید','پیراهن','مینیمال','زیر۲'],i:'./assets/toblink-asset-4.jpg',z:['M','L'],o:['کرم','سفید']},
 {id:3,n:'شلوار راسته مشکی',s:'Line 08',p:1980000,c:['شلوار','مینیمال','زیر۲'],i:'./assets/toblink-asset-5.jpg',z:['36','38','40'],o:['مشکی']},
@@ -13,7 +13,7 @@ const P=[
 {id:12,n:'تاپ کرم Ribbed',s:'RAW',p:980000,c:['جدید','مینیمال','زیر۲'],i:'./assets/toblink-asset-7.jpg',z:['S','M','L'],o:['کرم','مشکی']}
 ];
 
-const S=[
+let S=[
 ['Maison N','M','Tailoring • Minimal'],
 ['Nava Studio','N','Everyday • Clean'],
 ['Line 08','08','Urban • Essential'],
@@ -55,7 +55,12 @@ function card(p){
   return `<article class="card" onclick="openProduct(${p.id})">
     <div class="pic">
       <img src="${p.i}" alt="${p.n}">
-      <button class="heart ${saved.has(p.id)?'on':''}" aria-label="ذخیره" onclick="event.stopPropagation();save(${p.id})">${saved.has(p.id)?'♥':'♡'}</button>
+      <button class="heart ${saved.has(p.id)?'on':''}" aria-label="ذخیره" onclick="event.stopPropagation();save(${p.id})">
+  ${saved.has(p.id)
+    ? '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 21s-7-4.6-9.5-7.3C-.6 10.4.7 5 5.7 4.2 8.2 3.8 10.6 5 12 7c1.4-2 3.8-3.2 6.3-2.8 5 .8 6.3 6.2 3.2 9.5C19 16.4 12 21 12 21z"/></svg>'
+    : '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.8 4.6c-2.1-2.1-5.5-2.1-7.6 0L12 5.8l-1.2-1.2c-2.1-2.1-5.5-2.1-7.6 0s-2.1 5.5 0 7.6L12 21l8.8-8.8c2.1-2.1 2.1-5.5 0-7.6z"/></svg>'
+  }
+</button>
     </div>
     <div class="info">
       <div class="small">${p.s}</div>
@@ -84,13 +89,60 @@ function filter(button){
   renderProducts();
 }
 
-function save(id){
-  if(saved.has(id)) saved.delete(id); else saved.add(id);
-  persistSaved();
+async function save(id){
+  const supabase=window.__TOBLINK_SUPABASE__;
+  const user=window.__TOBLINK_USER__;
+  const product=P.find(x=>x.id===id);
+
+  if(!user){
+    window.location.href='./auth';
+    return;
+  }
+
+  if(!supabase || !product?.dbId){
+    toast('خطا در اتصال به حساب');
+    return;
+  }
+
+  const wasSaved=saved.has(id);
+
+  if(wasSaved){
+    const {error}=await supabase
+      .from('saved_products')
+      .delete()
+      .eq('user_id',user.id)
+      .eq('product_id',product.dbId);
+
+    if(error){
+      console.error(error);
+      toast('حذف از ذخیره‌ها انجام نشد');
+      return;
+    }
+
+    saved.delete(id);
+  }else{
+    const {error}=await supabase
+      .from('saved_products')
+      .insert({
+        user_id:user.id,
+        product_id:product.dbId
+      });
+
+    if(error){
+      console.error(error);
+      toast('ذخیره انجام نشد');
+      return;
+    }
+
+    saved.add(id);
+  }
+
   const badge=byId('badge');
   if(badge) badge.textContent=String(saved.size);
+
   renderProducts();
   renderSaved();
+
   toast(saved.has(id)?'ذخیره شد':'از ذخیره‌ها حذف شد');
 }
 
@@ -119,7 +171,12 @@ function openProduct(id){
       <p>این محصول توسط ${p.s} ارائه می‌شود. موجودی، قیمت نهایی، ارسال و مرجوعی توسط خود فروشگاه انجام می‌شود.</p>
       <div class="detailacts">
         <button class="btn soft" onclick="tryIt(${p.id});closeM('productModal')">✦ پرو با AI</button>
-        <button class="btn outline" onclick="save(${p.id})">${saved.has(p.id)?'♥ ذخیره شده':'♡ ذخیره'}</button>
+        <button class="btn outline" onclick="save(${p.id})">
+  ${saved.has(p.id)
+    ? '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:middle;margin-left:6px"><path d="M12 21s-7-4.6-9.5-7.3C-.6 10.4.7 5 5.7 4.2 8.2 3.8 10.6 5 12 7c1.4-2 3.8-3.2 6.3-2.8 5 .8 6.3 6.2 3.2 9.5C19 16.4 12 21 12 21z"/></svg> ذخیره شده'
+    : '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" style="vertical-align:middle;margin-left:6px"><path d="M20.8 4.6c-2.1-2.1-5.5-2.1-7.6 0L12 5.8l-1.2-1.2c-2.1-2.1-5.5-2.1-7.6 0s-2.1 5.5 0 7.6L12 21l8.8-8.8c2.1-2.1 2.1-5.5 0-7.6z"/></svg> ذخیره'
+  }
+</button>
         <button class="buy" onclick="buy(${p.id})">خرید از فروشگاه ←</button>
       </div>
       <p class="refText">خرید در سایت فروشگاه انجام می‌شود و لینک دارای شناسه referral اختصاصی Toblink خواهد بود.</p>
@@ -187,12 +244,39 @@ function openStore(name){
   openM('storeModal');
 }
 
-function buy(id){
+async function buy(id){
   const p=P.find(x=>x.id===id);
   if(!p) return;
+
+  const supabase=window.__TOBLINK_SUPABASE__;
+  const user=window.__TOBLINK_USER__ || null;
+
+  if(!supabase || !p.dbId || !p.storeDbId){
+    toast('خطا در ثبت خرید');
+    return;
+  }
+
   const ref='tbl_'+Date.now().toString(36);
-  toast(`referral ثبت شد • ${p.s} • ${ref}`);
-  // در نسخه واقعی اینجا URL فروشگاه با referral ID باز می‌شود.
+
+  const {error}=await supabase
+    .from('referrals')
+    .insert({
+      referral_code:ref,
+      user_id:user?.id || null,
+      product_id:p.dbId,
+      store_id:p.storeDbId
+    });
+
+  if(error){
+    console.error(error);
+    toast('ثبت referral انجام نشد');
+    return;
+  }
+
+  const separator=p.u.includes('?')?'&':'?';
+  const targetUrl=`${p.u}${separator}ref=${encodeURIComponent(ref)}`;
+
+  window.location.href=targetUrl;
 }
 
 function openSeller(){openM('sellerModal');}
@@ -220,4 +304,131 @@ function initialize(){
   renderSaved();
 }
 
-initialize();
+async function loadDataFromSupabase(){
+  try{
+    const key =
+      'sb_publishable_b5irJaX3iD6H4zW36jHT7w_UUSzBvIN';
+
+    const headers={
+      apikey:key,
+      Authorization:`Bearer ${key}`
+    };
+
+    const [productsResponse,storesResponse]=await Promise.all([
+      fetch(
+        'https://ukiuzvglukmzsyqdnlrs.supabase.co/rest/v1/products?select=id,store_id,name,price,image_url,product_url,category,style,colors,sizes,is_promoted,stores(name)&is_available=eq.true',
+        {headers}
+      ),
+      fetch(
+        'https://ukiuzvglukmzsyqdnlrs.supabase.co/rest/v1/stores?select=id,name,description,is_verified,is_active&is_active=eq.true',
+        {headers}
+      )
+    ]);
+
+    if(!productsResponse.ok || !storesResponse.ok){
+      throw new Error('Supabase request failed');
+    }
+
+    const productData=await productsResponse.json();
+    const storeData=await storesResponse.json();
+
+    if(Array.isArray(productData) && productData.length){
+      P=productData.map((row,index)=>({
+        id:index+1000,
+        dbId:row.id,
+storeDbId:row.store_id,
+        n:row.name,
+        s:row.stores?.name || 'Toblink Store',
+        p:Number(row.price),
+        c:[
+          row.category,
+          row.style,
+          row.is_promoted ? 'ترند' : null
+        ].filter(Boolean),
+        i:row.image_url || './assets/toblink-asset-3.jpg',
+        z:row.sizes || [],
+        o:row.colors || [],
+        u:row.product_url || '#'
+      }));
+
+      selected=P[0];
+    }
+
+    if(Array.isArray(storeData) && storeData.length){
+      S=storeData.map(row=>[
+        row.name,
+        row.name
+          .split(' ')
+          .map(word=>word[0])
+          .join('')
+          .toUpperCase()
+          .slice(0,2),
+        row.description || 'Fashion Store'
+      ]);
+    }
+
+  }catch(error){
+    console.error('Supabase data error:',error);
+  }
+
+  initialize();
+}
+
+loadDataFromSupabase();
+function updateProfileUser(user){
+  const nameEl = document.getElementById('profile-user-name');
+  const emailEl = document.getElementById('profile-user-email');
+
+  if(!nameEl || !emailEl) return;
+
+  if(user){
+    const fullName =
+      user.user_metadata?.full_name ||
+      user.email?.split('@')[0] ||
+      'کاربر Toblink';
+
+    nameEl.textContent = fullName;
+    emailEl.textContent = user.email || '';
+  }else{
+    nameEl.textContent = 'وارد حساب شو';
+    emailEl.textContent = '';
+  }
+}
+
+window.addEventListener('toblink-auth', (event)=>{
+  updateProfileUser(event.detail?.user || null);
+  loadSavedFromSupabase();
+});
+async function loadSavedFromSupabase(){
+  const supabase=window.__TOBLINK_SUPABASE__;
+  const user=window.__TOBLINK_USER__;
+
+  if(!supabase || !user || !P.length) return;
+
+  const {data,error}=await supabase
+    .from('saved_products')
+    .select('product_id')
+    .eq('user_id',user.id);
+
+  if(error){
+    console.error('Saved products load error:',error);
+    return;
+  }
+
+  saved.clear();
+
+  for(const row of data || []){
+    const product=P.find(p=>p.dbId===row.product_id);
+    if(product) saved.add(product.id);
+  }
+
+  const badge=byId('badge');
+  if(badge) badge.textContent=String(saved.size);
+
+  renderProducts();
+  renderSaved();
+}
+
+if(window.__TOBLINK_USER__ !== undefined){
+  updateProfileUser(window.__TOBLINK_USER__);
+}
