@@ -38,10 +38,11 @@ jobs:
 
       - name: Build Next.js
         run: npm run build
-                env:
+        env:
           PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
           NEXT_PUBLIC_SUPABASE_URL: https://ukiuzvglukmzsyqdnlrs.supabase.co
           NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_b5irJaX3iD6H4zW36jHT7w_UUSzBvIN
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
