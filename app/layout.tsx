@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Toblink",
-  description: "پرو مجازی لباس با هوش مصنوعی",
+  title: "Toblink — اول بپوش بعد بخر",
+  description: "Toblink — کشف استایل، پرو با هوش مصنوعی و خرید از فروشگاه واقعی",
 };
 
 export default function RootLayout({

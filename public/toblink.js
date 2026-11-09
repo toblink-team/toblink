@@ -1,417 +1,223 @@
+const P=[
+{id:1,n:'بلیزر زرشکی Tailored',s:'Maison N',p:2890000,c:['ترند','کت','رسمی'],i:'./assets/toblink-asset-3.jpg',z:['S','M','L'],o:['زرشکی','مشکی']},
+{id:2,n:'پیراهن کرم مینیمال',s:'Nava Studio',p:1640000,c:['جدید','پیراهن','مینیمال','زیر۲'],i:'./assets/toblink-asset-4.jpg',z:['M','L'],o:['کرم','سفید']},
+{id:3,n:'شلوار راسته مشکی',s:'Line 08',p:1980000,c:['شلوار','مینیمال','زیر۲'],i:'./assets/toblink-asset-5.jpg',z:['36','38','40'],o:['مشکی']},
+{id:4,n:'کت کوتاه خاکی',s:'Atelier S',p:2450000,c:['جدید','کت','مینیمال'],i:'./assets/toblink-asset-6.jpg',z:['S','M'],o:['خاکی']},
+{id:5,n:'ست استریت طوسی',s:'RAW',p:2190000,c:['ترند','استریت'],i:'./assets/toblink-asset-7.jpg',z:['M','L'],o:['طوسی']},
+{id:6,n:'پیراهن مشکی شب',s:'Noir Room',p:3290000,c:['پیراهن','رسمی','ترند'],i:'./assets/toblink-asset-8.jpg',z:['S','M','L'],o:['مشکی']},
+{id:7,n:'جین آبی Relaxed',s:'DENIM Lab',p:1840000,c:['شلوار','استریت','زیر۲'],i:'./assets/toblink-asset-2.jpg',z:['28','30','32'],o:['آبی']},
+{id:8,n:'کت کرم ساختارمند',s:'Maison N',p:3140000,c:['کت','رسمی','مینیمال'],i:'./assets/toblink-asset-3.jpg',z:['S','M','L'],o:['کرم']},
+{id:9,n:'پیراهن راه‌راه روزمره',s:'Nava Studio',p:1490000,c:['پیراهن','جدید','زیر۲'],i:'./assets/toblink-asset-4.jpg',z:['M','L'],o:['آبی','سفید']},
+{id:10,n:'شلوار پارچه‌ای زیتونی',s:'Atelier S',p:1760000,c:['شلوار','مینیمال','زیر۲'],i:'./assets/toblink-asset-5.jpg',z:['36','38','40'],o:['زیتونی']},
+{id:11,n:'بلیزر مشکی Oversized',s:'Line 08',p:2790000,c:['کت','ترند','استریت'],i:'./assets/toblink-asset-6.jpg',z:['M','L'],o:['مشکی']},
+{id:12,n:'تاپ کرم Ribbed',s:'RAW',p:980000,c:['جدید','مینیمال','زیر۲'],i:'./assets/toblink-asset-7.jpg',z:['S','M','L'],o:['کرم','مشکی']}
+];
 
-const views=[...document.querySelectorAll('.view')];
-const toast=document.getElementById('toast');
-const PRODUCT_DETAILS={"product-1": {"short": "کت زنانه با طراحی کلاسیک، برش تمیز و رنگ زرشکی عمیق؛ مناسب استایل رسمی و نیمه‌رسمی.", "description": "این کت با فرم ساختارمند و دوخت دقیق طراحی شده تا روی بدن ایستایی مرتب و حرفه‌ای داشته باشد. برای استفاده روزمره، محیط کار، قرارهای رسمی و ترکیب با شلوار پارچه‌ای یا جین مناسب است.", "colors": [["زرشکی", "#7e0e27"], ["مشکی", "#222222"], ["کرم", "#d9c5ae"]], "sizes": ["S", "M", "L", "XL"], "disabledSizes": ["XL"], "care": "شست‌وشوی خشک پیشنهاد می‌شود. از سفیدکننده استفاده نشود و اتوکشی با دمای پایین انجام شود.", "specs": {"دسته‌بندی": "کت زنانه", "جنسیت": "زنانه", "جنس پارچه": "فاستونی ترکیبی", "فرم": "Regular Fit", "فصل": "پاییز و زمستان", "قد لباس": "متوسط", "کد محصول": "AV-1028", "کشور تولید": "ایران"}, "delivery": "ارسال ۱ تا ۲ روز کاری", "return": "۷ روز امکان بازگشت", "sellerProducts": "۳۶", "sellerScore": "۴.۹", "sellerShip": "۱ روز"}, "product-2": {"short": "مانتوی کرم مینیمال با خطوط ساده و فرم آزاد برای استایل روزمره و شهری.", "description": "طراحی مینیمال این مانتو باعث می‌شود به‌راحتی با رنگ‌های خنثی و اکسسوری‌های مختلف ترکیب شود. پارچه سبک و فرم آزاد آن برای استفاده طولانی‌مدت مناسب است.", "colors": [["کرم", "#d8c7b4"], ["نسکافه‌ای", "#9d8068"], ["مشکی", "#242424"]], "sizes": ["36", "38", "40", "42", "44"], "disabledSizes": [], "care": "شست‌وشو با آب سرد و شوینده ملایم. برای حفظ فرم لباس، به‌صورت آویزان خشک شود.", "specs": {"دسته‌بندی": "مانتو", "جنسیت": "زنانه", "جنس پارچه": "لینن ترکیبی", "فرم": "Loose Fit", "فصل": "بهار و تابستان", "قد لباس": "بلند", "کد محصول": "NI-2140", "کشور تولید": "ایران"}, "delivery": "ارسال ۲ تا ۳ روز کاری", "return": "۷ روز امکان بازگشت", "sellerProducts": "۲۸", "sellerScore": "۴.۷", "sellerShip": "۲ روز"}, "product-3": {"short": "ست کژوال شهری با فرم راحت و مناسب استفاده روزانه.", "description": "این محصول برای حرکت راحت و استفاده روزمره طراحی شده است. برش ساده، پارچه تنفس‌پذیر و ترکیب رنگ کاربردی، آن را به انتخابی مناسب برای استایل خیابانی تبدیل می‌کند.", "colors": [["خاکستری", "#777777"], ["سفید", "#eeeeee"], ["سرمه‌ای", "#27364c"]], "sizes": ["S", "M", "L", "XL", "XXL"], "disabledSizes": ["S"], "care": "شست‌وشو با ماشین در دمای ۳۰ درجه. از خشک‌کن با حرارت بالا استفاده نشود.", "specs": {"دسته‌بندی": "ست روزمره", "جنسیت": "یونیسکس", "جنس پارچه": "پنبه", "فرم": "Relaxed Fit", "فصل": "چهارفصل", "نوع یقه": "گرد", "کد محصول": "MO-3187", "کشور تولید": "ترکیه"}, "delivery": "ارسال ۱ تا ۳ روز کاری", "return": "۷ روز امکان بازگشت", "sellerProducts": "۵۲", "sellerScore": "۴.۸", "sellerShip": "۱ تا ۲ روز"}, "product-4": {"short": "پیراهن مشکی مجلسی با فرم کشیده و جزئیات ظریف.", "description": "این پیراهن برای مهمانی‌ها و مراسم رسمی طراحی شده و با فرم متناسب و پارچه خوش‌افت، ظاهری تمیز و شیک ایجاد می‌کند.", "colors": [["مشکی", "#1d1d1d"], ["زرشکی", "#761c33"]], "sizes": ["36", "38", "40", "42"], "disabledSizes": ["36"], "care": "فقط خشکشویی. اتوکشی مستقیم روی پارچه انجام نشود.", "specs": {"دسته‌بندی": "پیراهن مجلسی", "جنسیت": "زنانه", "جنس پارچه": "کرپ", "فرم": "Slim Fit", "فصل": "چهارفصل", "قد لباس": "ماکسی", "کد محصول": "RO-4412", "کشور تولید": "ایران"}, "delivery": "ارسال ۲ روز کاری", "return": "تعویض سایز تا ۷ روز", "sellerProducts": "۱۹", "sellerScore": "۴.۹", "sellerShip": "۲ روز"}, "product-5": {"short": "کت جین روزمره با طراحی ساده و رنگ آبی قابل ترکیب.", "description": "کت جین کلاسیک با دوخت مقاوم و فرم استاندارد، برای استفاده روزانه و لایه‌سازی روی تی‌شرت، هودی یا پیراهن مناسب است.", "colors": [["آبی متوسط", "#52718c"], ["آبی تیره", "#2e465c"], ["ذغالی", "#4e5055"]], "sizes": ["S", "M", "L", "XL"], "disabledSizes": [], "care": "پشت‌ورو و با آب سرد شسته شود. برای جلوگیری از تغییر رنگ از شوینده ملایم استفاده کنید.", "specs": {"دسته‌بندی": "کت جین", "جنسیت": "یونیسکس", "جنس پارچه": "دنیم", "فرم": "Regular Fit", "فصل": "بهار و پاییز", "نوع بسته‌شدن": "دکمه‌ای", "کد محصول": "AR-5116", "کشور تولید": "ترکیه"}, "delivery": "ارسال ۱ تا ۲ روز کاری", "return": "۷ روز امکان بازگشت", "sellerProducts": "۴۴", "sellerScore": "۴.۶", "sellerShip": "۱ روز"}, "product-6": {"short": "استایل اسمارت‌کژوال با ظاهر مرتب و راحت برای محیط کار و قرارهای روزانه.", "description": "ترکیبی متعادل میان رسمی و روزمره که با برش تمیز و پارچه باکیفیت، برای موقعیت‌های مختلف قابل استفاده است.", "colors": [["کرم روشن", "#d8cdbd"], ["قهوه‌ای", "#70584a"], ["سرمه‌ای", "#25364e"]], "sizes": ["M", "L", "XL", "XXL"], "disabledSizes": ["XXL"], "care": "شست‌وشوی دستی یا برنامه لباس‌های ظریف. اتوکشی با حرارت کم.", "specs": {"دسته‌بندی": "اسمارت کژوال", "جنسیت": "مردانه", "جنس پارچه": "ویسکوز ترکیبی", "فرم": "Tailored Fit", "فصل": "چهارفصل", "نوع یقه": "برگردان", "کد محصول": "VA-6024", "کشور تولید": "ایران"}, "delivery": "ارسال ۲ تا ۳ روز کاری", "return": "۷ روز امکان بازگشت", "sellerProducts": "۳۱", "sellerScore": "۴.۸", "sellerShip": "۲ روز"}, "product-7": {"short": "هودی طوسی اورسایز با پارچه نرم و مناسب استایل اسپرت.", "description": "هودی راحت با فرم اورسایز، داخل نرم و جیب کاربردی که برای استفاده روزمره، دانشگاه، سفر و استایل خیابانی مناسب است.", "colors": [["طوسی", "#8b8b8b"], ["مشکی", "#252525"], ["سبز زیتونی", "#60654b"]], "sizes": ["S", "M", "L", "XL", "XXL"], "disabledSizes": [], "care": "در دمای ۳۰ درجه و پشت‌ورو شسته شود. از اتوکشی مستقیم روی چاپ یا جزئیات خودداری کنید.", "specs": {"دسته‌بندی": "هودی", "جنسیت": "یونیسکس", "جنس پارچه": "دورس پنبه‌ای", "فرم": "Oversized", "فصل": "پاییز و زمستان", "نوع آستین": "بلند", "کد محصول": "SL-7089", "کشور تولید": "ایران"}, "delivery": "ارسال ۱ تا ۲ روز کاری", "return": "۷ روز امکان بازگشت", "sellerProducts": "۶۳", "sellerScore": "۴.۷", "sellerShip": "۱ روز"}};
-let activeProductId=null;
-let selectedDetailColor='';
-let selectedDetailSize='';
+const S=[
+['Maison N','M','Tailoring • Minimal'],
+['Nava Studio','N','Everyday • Clean'],
+['Line 08','08','Urban • Essential'],
+['Atelier S','S','Modern • Soft'],
+['RAW','R','Street • Relaxed'],
+['Noir Room','NR','Evening • Formal'],
+['DENIM Lab','DL','Denim • Casual']
+];
 
-function showToast(message){
-  if(!toast)return;
-  toast.textContent=message;
-  toast.classList.add('show');
-  clearTimeout(window.__toastTimer);
-  window.__toastTimer=setTimeout(()=>toast.classList.remove('show'),1600);
+const SAVE_KEY='toblink-saved-v2';
+let F='همه';
+let selected=P[0];
+let saved=new Set();
+let toastTimer;
+
+try{
+  const raw=JSON.parse(localStorage.getItem(SAVE_KEY)||'[]');
+  if(Array.isArray(raw)) saved=new Set(raw.map(Number));
+}catch{}
+
+const byId=id=>document.getElementById(id);
+const money=x=>new Intl.NumberFormat('fa-IR').format(x)+' تومان';
+
+function persistSaved(){
+  try{localStorage.setItem(SAVE_KEY,JSON.stringify([...saved]));}catch{}
 }
 
 function go(id){
-  views.forEach(view=>view.classList.toggle('active',view.id===id));
-  if(id==='account') renderSavedProducts();
-  if(id==='cart') renderCart();
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('on'));
+  byId(id)?.classList.add('on');
+  document.querySelectorAll('[data-p]').forEach(el=>el.classList.toggle('on',el.dataset.p===id));
+  if(id==='explore') renderProducts();
+  if(id==='saved') renderSaved();
+  if(id==='fit') renderSelected();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-document.addEventListener('click',event=>{
-  const navTarget=event.target.closest('[data-go]');
-  if(navTarget){
-    event.preventDefault();
-    go(navTarget.dataset.go);
-    return;
-  }
-
-  const explicitDetail=event.target.closest('[data-product-detail]');
-  if(explicitDetail){
-    event.preventDefault();
-    event.stopPropagation();
-    openProductDetail(explicitDetail.dataset.productDetail);
-    return;
-  }
-
-  const saveButton=event.target.closest('.save-product');
-  if(saveButton){
-    event.preventDefault();
-    event.stopPropagation();
-    toggleSaved(saveButton.dataset.saveId);
-    return;
-  }
-
-  const addButton=event.target.closest('.add-cart-btn');
-  if(addButton){
-    event.preventDefault();
-    event.stopPropagation();
-    addToCart(addButton.dataset.cartId);
-    return;
-  }
-
-  const quantityButton=event.target.closest('[data-qty-action]');
-  if(quantityButton){
-    const id=quantityButton.dataset.cartId;
-    changeQuantity(id,quantityButton.dataset.qtyAction==='increase'?1:-1);
-    return;
-  }
-
-  const removeButton=event.target.closest('[data-remove-cart]');
-  if(removeButton){
-    removeFromCart(removeButton.dataset.removeCart);
-    return;
-  }
-
-  if(event.target.closest('#savedMenuRow')){
-    document.getElementById('savedSection')?.scrollIntoView({behavior:'smooth',block:'start'});
-    return;
-  }
-
-  const card=event.target.closest('.product-card');
-  if(card && !event.target.closest('button,a')){
-    openProductDetail(card.dataset.productId);
-  }
-});
-
-const photoInput=document.getElementById('photoInput');
-const preview=document.getElementById('photoPreview');
-const content=document.getElementById('uploadContent');
-const drop=document.getElementById('dropZone');
-const removePhoto=document.getElementById('removePhoto');
-
-function showFile(file){
-  if(!file||!file.type.startsWith('image/'))return;
-  const reader=new FileReader();
-  reader.onload=()=>{
-    preview.src=reader.result;
-    preview.style.display='block';
-    content.style.display='none';
-    removePhoto.style.display='grid';
-  };
-  reader.readAsDataURL(file);
+function card(p){
+  return `<article class="card" onclick="openProduct(${p.id})">
+    <div class="pic">
+      <img src="${p.i}" alt="${p.n}">
+      <button class="heart ${saved.has(p.id)?'on':''}" aria-label="ذخیره" onclick="event.stopPropagation();save(${p.id})">${saved.has(p.id)?'♥':'♡'}</button>
+    </div>
+    <div class="info">
+      <div class="small">${p.s}</div>
+      <h4>${p.n}</h4>
+      <div class="row"><div class="price">${money(p.p)}</div><button class="try" onclick="event.stopPropagation();tryIt(${p.id})">پرو کن</button></div>
+    </div>
+  </article>`;
 }
 
-photoInput?.addEventListener('change',event=>showFile(event.target.files[0]));
-removePhoto?.addEventListener('click',event=>{
-  event.preventDefault();
-  event.stopPropagation();
+function renderProducts(){
+  const search=byId('search');
+  const q=(search?.value||'').trim().toLowerCase();
+  const list=P.filter(p=>{
+    const filterMatch=F==='همه'||p.c.includes(F);
+    const haystack=(p.n+' '+p.s+' '+p.c.join(' ')+' '+p.o.join(' ')).toLowerCase();
+    return filterMatch&&(!q||haystack.includes(q));
+  });
+  const grid=byId('grid');
+  if(grid) grid.innerHTML=list.length?list.map(card).join(''):'<div class="emptyState">چیزی با این فیلتر پیدا نکردیم.</div>';
+}
+
+function filter(button){
+  document.querySelectorAll('[data-f]').forEach(el=>el.classList.remove('on'));
+  button.classList.add('on');
+  F=button.dataset.f||'همه';
+  renderProducts();
+}
+
+function save(id){
+  if(saved.has(id)) saved.delete(id); else saved.add(id);
+  persistSaved();
+  const badge=byId('badge');
+  if(badge) badge.textContent=String(saved.size);
+  renderProducts();
+  renderSaved();
+  toast(saved.has(id)?'ذخیره شد':'از ذخیره‌ها حذف شد');
+}
+
+function renderSaved(){
+  const grid=byId('savedGrid');
+  if(!grid) return;
+  const list=P.filter(p=>saved.has(p.id));
+  grid.innerHTML=list.length?list.map(card).join(''):'<div class="emptyState">هنوز چیزی ذخیره نکردی.<br><button class="btn outline" style="margin-top:12px" onclick="go(\'explore\')">برو اکسپلور</button></div>';
+}
+
+function openProduct(id){
+  const p=P.find(x=>x.id===id);
+  if(!p) return;
+  closeM('storeModal');
+  const detail=byId('detail');
+  detail.innerHTML=`
+    <div class="detailimg"><img src="${p.i}" alt="${p.n}"></div>
+    <div>
+      <button class="storeLink" onclick="openStore('${p.s}')">${p.s} ← فروشگاه</button>
+      <h2>${p.n}</h2>
+      <div class="bigprice">${money(p.p)}</div>
+      <b class="optionLabel">سایز</b>
+      <div class="opts" style="margin:7px 0 14px">${p.z.map((x,i)=>`<button class="opt ${i?'':'on'}" onclick="pick(this)">${x}</button>`).join('')}</div>
+      <b class="optionLabel">رنگ</b>
+      <div class="opts" style="margin-top:7px">${p.o.map((x,i)=>`<button class="opt ${i?'':'on'}" onclick="pick(this)">${x}</button>`).join('')}</div>
+      <p>این محصول توسط ${p.s} ارائه می‌شود. موجودی، قیمت نهایی، ارسال و مرجوعی توسط خود فروشگاه انجام می‌شود.</p>
+      <div class="detailacts">
+        <button class="btn soft" onclick="tryIt(${p.id});closeM('productModal')">✦ پرو با AI</button>
+        <button class="btn outline" onclick="save(${p.id})">${saved.has(p.id)?'♥ ذخیره شده':'♡ ذخیره'}</button>
+        <button class="buy" onclick="buy(${p.id})">خرید از فروشگاه ←</button>
+      </div>
+      <p class="refText">خرید در سایت فروشگاه انجام می‌شود و لینک دارای شناسه referral اختصاصی Toblink خواهد بود.</p>
+    </div>`;
+  openM('productModal');
+}
+
+function pick(button){
+  [...button.parentElement.children].forEach(el=>el.classList.remove('on'));
+  button.classList.add('on');
+}
+
+function tryIt(id){
+  selected=P.find(x=>x.id===id)||P[0];
+  renderSelected();
+  go('fit');
+}
+
+function renderSelected(){
+  const box=byId('selected');
+  if(!box) return;
+  box.innerHTML=`<img src="${selected.i}" alt="${selected.n}"><div><b>${selected.n}</b><span>${selected.s} • ${money(selected.p)}</span></div>`;
+}
+
+function photo(event){
+  const file=event.target.files?.[0];
+  if(!file||!file.type.startsWith('image/')) return;
+  const preview=byId('preview');
+  preview.src=URL.createObjectURL(file);
+  preview.style.display='block';
+  byId('empty').style.display='none';
+  byId('result').classList.remove('on');
+  byId('removePhoto').style.display='block';
+}
+
+function removeUserPhoto(){
+  const input=byId('file');
+  const preview=byId('preview');
+  if(preview.src?.startsWith('blob:')) URL.revokeObjectURL(preview.src);
   preview.removeAttribute('src');
   preview.style.display='none';
-  content.style.display='';
-  removePhoto.style.display='none';
-  photoInput.value='';
-});
-['dragenter','dragover'].forEach(name=>drop?.addEventListener(name,event=>{
-  event.preventDefault();
-  drop.classList.add('drag');
-}));
-['dragleave','drop'].forEach(name=>drop?.addEventListener(name,event=>{
-  event.preventDefault();
-  drop.classList.remove('drag');
-}));
-drop?.addEventListener('drop',event=>showFile(event.dataTransfer.files[0]));
-document.getElementById('chooseClothes')?.addEventListener('click',()=>go('explore'));
-
-const SAVE_KEY='toblink-saved-products-v1';
-const CART_KEY='toblink-cart-v1';
-
-function safeRead(key,fallback){
-  try{
-    const value=JSON.parse(localStorage.getItem(key));
-    return value ?? fallback;
-  }catch{
-    return fallback;
-  }
+  byId('empty').style.display='block';
+  byId('result').classList.remove('on');
+  byId('removePhoto').style.display='none';
+  if(input) input.value='';
+  toast('عکس حذف شد');
 }
 
-function toPersianNumber(value){
-  return String(value).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+function generate(){
+  const preview=byId('preview');
+  if(!preview?.getAttribute('src')){toast('اول یک عکس اضافه کن');return;}
+  byId('result').classList.add('on');
+  toast('رابط آماده است؛ مرحله بعد اتصال API پرو واقعی است');
 }
 
-function formatMoney(value){
-  return toPersianNumber(Number(value||0).toLocaleString('en-US'))+' تومان';
+function openStore(name){
+  const s=S.find(x=>x[0]===name)||[name,name[0],'Fashion Store'];
+  const products=P.filter(p=>p.s===name);
+  closeM('productModal');
+  const body=byId('storeBody');
+  body.innerHTML=`
+    <div class="storeHero"><div class="logo">${s[1]}</div><div><h2>${s[0]}</h2><small>${s[2]} • فروشگاه تاییدشده Toblink</small></div></div>
+    <div class="storeMeta"><span>${new Intl.NumberFormat('fa-IR').format(products.length)} محصول</span><span>پرو با AI فعال</span><span>خرید از سایت فروشگاه</span></div>
+    <div class="storeProducts">${products.length?products.map(card).join(''):'<div class="emptyState">محصولی برای نمایش نیست.</div>'}</div>`;
+  openM('storeModal');
 }
 
-let savedProducts=new Set(Array.isArray(safeRead(SAVE_KEY,[]))?safeRead(SAVE_KEY,[]):[]);
-let cart=safeRead(CART_KEY,{});
-if(!cart||Array.isArray(cart)||typeof cart!=='object')cart={};
-
-function writeSaved(){
-  localStorage.setItem(SAVE_KEY,JSON.stringify([...savedProducts]));
+function buy(id){
+  const p=P.find(x=>x.id===id);
+  if(!p) return;
+  const ref='tbl_'+Date.now().toString(36);
+  toast(`referral ثبت شد • ${p.s} • ${ref}`);
+  // در نسخه واقعی اینجا URL فروشگاه با referral ID باز می‌شود.
 }
 
-function writeCart(){
-  localStorage.setItem(CART_KEY,JSON.stringify(cart));
+function openSeller(){openM('sellerModal');}
+function openM(id){byId(id)?.classList.add('on');document.body.style.overflow='hidden';}
+function closeM(id){byId(id)?.classList.remove('on');if(!document.querySelector('.modalbg.on'))document.body.style.overflow='';}
+function backdrop(event,id){if(event.target.id===id)closeM(id);}
+function toast(text){
+  const el=byId('toast');
+  if(!el) return;
+  el.textContent=text;
+  el.classList.add('on');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('on'),2100);
 }
 
-function getProductCard(productId){
-  return document.querySelector(`#explore .product-card[data-product-id="${productId}"]`);
+function initialize(){
+  const badge=byId('badge');
+  if(badge) badge.textContent=String(saved.size);
+  const trends=byId('trends');
+  if(trends) trends.innerHTML=P.slice(0,3).map(p=>`<div class="trend" onclick="openProduct(${p.id})"><img src="${p.i}" alt="${p.n}"><div><b>${p.n}</b><span>${p.s}</span></div><em>${new Intl.NumberFormat('fa-IR').format(Math.round(p.p/1000))}K</em></div>`).join('');
+  const stores=byId('stores');
+  if(stores) stores.innerHTML=S.slice(0,5).map(s=>`<div class="store" onclick="openStore('${s[0]}')"><div class="logo">${s[1]}</div><div><b>${s[0]}</b><span>${s[2]}</span></div></div>`).join('');
+  renderProducts();
+  renderSelected();
+  renderSaved();
 }
 
-function getProductData(productId){
-  const card=getProductCard(productId);
-  if(!card)return null;
-  return {
-    id:productId,
-    name:card.dataset.name||card.querySelector('h3')?.textContent.trim()||'محصول',
-    shop:card.dataset.shop||card.querySelector('.shop')?.textContent.trim()||'فروشگاه',
-    price:Number(card.dataset.price||0),
-    image:card.dataset.image||card.querySelector('.product-image img')?.src||''
-  };
-}
-
-function updateSavedUI(){
-  document.querySelectorAll('.save-product').forEach(button=>{
-    const isSaved=savedProducts.has(button.dataset.saveId);
-    button.classList.toggle('saved',isSaved);
-    button.setAttribute('aria-label',isSaved?'حذف از ذخیره‌شده‌ها':'ذخیره محصول');
-    button.title=isSaved?'حذف از ذخیره‌شده‌ها':'ذخیره';
-  });
-
-  const detailSave=document.getElementById('detailSaveButton');
-  if(detailSave && activeProductId){
-    const isSaved=savedProducts.has(activeProductId);
-    detailSave.classList.toggle('saved',isSaved);
-    detailSave.setAttribute('aria-label',isSaved?'حذف از ذخیره‌شده‌ها':'ذخیره محصول');
-  }
-
-  const count=document.getElementById('savedCount');
-  if(count)count.textContent=toPersianNumber(savedProducts.size);
-}
-
-function toggleSaved(productId){
-  if(savedProducts.has(productId)){
-    savedProducts.delete(productId);
-    showToast('از ذخیره‌شده‌ها حذف شد');
-  }else{
-    savedProducts.add(productId);
-    showToast('محصول ذخیره شد');
-  }
-  writeSaved();
-  updateSavedUI();
-  if(document.getElementById('account')?.classList.contains('active'))renderSavedProducts();
-}
-
-function renderSavedProducts(){
-  const container=document.getElementById('savedProducts');
-  const empty=document.getElementById('savedEmpty');
-  if(!container||!empty)return;
-
-  container.innerHTML='';
-  [...savedProducts].forEach(id=>{
-    const original=getProductCard(id);
-    if(!original)return;
-    const clone=original.cloneNode(true);
-    clone.classList.add('account-saved-card');
-    container.appendChild(clone);
-  });
-
-  empty.classList.toggle('hidden',container.children.length>0);
-  updateSavedUI();
-  updateCartUI();
-}
-
-function cartCount(){
-  return Object.values(cart).reduce((sum,quantity)=>sum+Number(quantity||0),0);
-}
-
-function updateCartUI(){
-  const count=cartCount();
-  const headerCount=document.getElementById('headerCartCount');
-  const accountCount=document.getElementById('accountCartCount');
-
-  if(headerCount){
-    headerCount.textContent=toPersianNumber(count);
-    headerCount.classList.toggle('is-zero',count===0);
-  }
-  if(accountCount)accountCount.textContent=toPersianNumber(count);
-
-  document.querySelectorAll('.add-cart-btn').forEach(button=>{
-    const quantity=Number(cart[button.dataset.cartId]||0);
-    button.classList.toggle('in-cart',quantity>0);
-    button.textContent=quantity>0?'افزودن دوباره':'افزودن به سبد';
-  });
-}
-
-function addToCart(productId){
-  cart[productId]=Number(cart[productId]||0)+1;
-  writeCart();
-  updateCartUI();
-  showToast('به سبد خرید اضافه شد');
-}
-
-function changeQuantity(productId,delta){
-  const next=Number(cart[productId]||0)+delta;
-  if(next<=0)delete cart[productId];
-  else cart[productId]=next;
-  writeCart();
-  updateCartUI();
-  renderCart();
-}
-
-function removeFromCart(productId){
-  delete cart[productId];
-  writeCart();
-  updateCartUI();
-  renderCart();
-  showToast('از سبد خرید حذف شد');
-}
-
-function renderCart(){
-  const container=document.getElementById('cartItems');
-  const empty=document.getElementById('cartEmpty');
-  if(!container||!empty)return;
-
-  container.innerHTML='';
-  let total=0;
-  let count=0;
-
-  Object.entries(cart).forEach(([id,quantity])=>{
-    const product=getProductData(id);
-    if(!product)return;
-    quantity=Number(quantity||0);
-    if(quantity<1)return;
-
-    total+=product.price*quantity;
-    count+=quantity;
-
-    const item=document.createElement('article');
-    item.className='cart-item';
-    item.innerHTML=`
-      <img class="cart-item-image" src="${product.image}" alt="${product.name}">
-      <div class="cart-item-copy">
-        <div class="cart-item-shop">${product.shop}</div>
-        <h3 class="cart-item-title">${product.name}</h3>
-        <div class="cart-item-price">${formatMoney(product.price)}</div>
-      </div>
-      <div class="cart-item-controls">
-        <div class="qty-control">
-          <button type="button" data-qty-action="decrease" data-cart-id="${id}" aria-label="کم کردن">−</button>
-          <span>${toPersianNumber(quantity)}</span>
-          <button type="button" data-qty-action="increase" data-cart-id="${id}" aria-label="اضافه کردن">+</button>
-        </div>
-        <button type="button" class="remove-cart-item" data-remove-cart="${id}">حذف</button>
-      </div>`;
-    container.appendChild(item);
-  });
-
-  empty.classList.toggle('hidden',container.children.length>0);
-  document.getElementById('summaryCount').textContent=toPersianNumber(count);
-  document.getElementById('summarySubtotal').textContent=formatMoney(total);
-  document.getElementById('summaryTotal').textContent=formatMoney(total);
-
-  const checkout=document.getElementById('checkoutButton');
-  if(checkout)checkout.disabled=count===0;
-}
-
-function openProductDetail(productId){
-  const product=getProductData(productId);
-  const details=PRODUCT_DETAILS[productId];
-  if(!product||!details)return;
-
-  activeProductId=productId;
-  selectedDetailColor=details.colors?.[0]?.[0]||'';
-  selectedDetailSize=details.sizes?.find(size=>!details.disabledSizes?.includes(size))||'';
-
-  document.getElementById('detailImage').src=product.image;
-  document.getElementById('detailImage').alt=product.name;
-  document.getElementById('detailShop').textContent=product.shop;
-  document.getElementById('detailTitle').textContent=product.name;
-  document.getElementById('detailPrice').textContent=formatMoney(product.price);
-  document.getElementById('detailShortDescription').textContent=details.short||'';
-  document.getElementById('detailDescription').textContent=details.description||'';
-  document.getElementById('detailCare').textContent=details.care||'';
-  document.getElementById('detailDelivery').textContent=details.delivery||'ارسال سریع';
-  document.getElementById('detailReturn').textContent=details.return||'امکان بازگشت کالا';
-  document.getElementById('detailSellerName').textContent=product.shop;
-  document.getElementById('detailSellerInitial').textContent=(product.shop||'T').trim().charAt(0);
-  document.getElementById('detailSellerProducts').textContent=toPersianNumber(details.sellerProducts||'۰');
-  document.getElementById('detailSellerScore').textContent=toPersianNumber(details.sellerScore||'۰');
-  document.getElementById('detailSellerShip').textContent=details.sellerShip||'۱ تا ۲ روز';
-
-  renderDetailColors(details.colors||[]);
-  renderDetailSizes(details.sizes||[],details.disabledSizes||[]);
-  renderDetailSpecs(details.specs||{});
-  updateSavedUI();
-  go('productDetail');
-}
-
-function renderDetailColors(colors){
-  const container=document.getElementById('detailColors');
-  container.innerHTML='';
-  colors.forEach(([label,value],index)=>{
-    const button=document.createElement('button');
-    button.type='button';
-    button.className='color-option'+(index===0?' active':'');
-    button.style.background=value;
-    button.title=label;
-    button.setAttribute('aria-label',label);
-    button.addEventListener('click',()=>{
-      selectedDetailColor=label;
-      container.querySelectorAll('.color-option').forEach(item=>item.classList.remove('active'));
-      button.classList.add('active');
-      document.getElementById('selectedColorLabel').textContent=label;
-    });
-    container.appendChild(button);
-  });
-  document.getElementById('selectedColorLabel').textContent=colors[0]?.[0]||'';
-}
-
-function renderDetailSizes(sizes,disabledSizes){
-  const container=document.getElementById('detailSizes');
-  container.innerHTML='';
-  sizes.forEach(size=>{
-    const button=document.createElement('button');
-    button.type='button';
-    button.className='size-option'+(size===selectedDetailSize?' active':'');
-    button.textContent=size;
-    button.disabled=disabledSizes.includes(size);
-    button.addEventListener('click',()=>{
-      if(button.disabled)return;
-      selectedDetailSize=size;
-      container.querySelectorAll('.size-option').forEach(item=>item.classList.remove('active'));
-      button.classList.add('active');
-    });
-    container.appendChild(button);
-  });
-}
-
-function renderDetailSpecs(specs){
-  const container=document.getElementById('detailSpecs');
-  container.innerHTML='';
-  Object.entries(specs).forEach(([label,value])=>{
-    const item=document.createElement('div');
-    item.className='product-spec-item';
-    item.innerHTML=`<span>${label}</span><strong>${value}</strong>`;
-    container.appendChild(item);
-  });
-}
-
-document.getElementById('detailSaveButton')?.addEventListener('click',()=>{
-  if(activeProductId)toggleSaved(activeProductId);
-});
-
-document.getElementById('detailAddCart')?.addEventListener('click',()=>{
-  if(!activeProductId)return;
-  if(!selectedDetailSize){
-    showToast('لطفاً سایز را انتخاب کنید');
-    return;
-  }
-  addToCart(activeProductId);
-});
-
-document.getElementById('checkoutButton')?.addEventListener('click',()=>{
-  if(cartCount()===0)return;
-  showToast('مرحله پرداخت در نسخه بعدی فعال می‌شود.');
-});
-
-document.querySelector('.size-guide-button')?.addEventListener('click',()=>{
-  showToast('راهنمای سایز در مرحله بعد اضافه می‌شود.');
-});
-
-updateSavedUI();
-updateCartUI();
+initialize();
